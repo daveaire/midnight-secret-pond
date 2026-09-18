@@ -26,6 +26,6 @@ I am building Secret Pond Proof, a Midnight privacy DApp that proves a trading o
 
 - Join the Midnight Discord `kr-chat` channel.
 - Register or sign in on the Rise In program page and review its separate consents.
-- Publish the repository and deployment.
+- Public repository published: `https://github.com/daveaire/midnight-secret-pond`.
 - Record and publish the demo video.
 - Submit the final project by September 28, 2026 at 00:00 KST.

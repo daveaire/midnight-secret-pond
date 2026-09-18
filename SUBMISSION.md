@@ -2,6 +2,8 @@
 
 **Project:** Secret Pond Proof
 
+**Public repository:** <https://github.com/daveaire/midnight-secret-pond>
+
 **One line:** Prove an executable arbitrage opportunity satisfies profitability, speed, and liquidity policy without revealing the asset, venues, trade size, or market route.
 
 ## Problem
