@@ -23,7 +23,7 @@ Open `contract/src/secret-pond.compact` and point to:
 
 ## 0:50–1:25 — Accepted proof
 
-Open the dashboard. Keep the valid synthetic values and click **Prove privately**.
+Open the dashboard. Keep the valid synthetic values and click **Prove opportunity**.
 
 “This button executes the generated Compact `proveOpportunity` circuit. The proof count advances and the commitment changes, while the public response discloses zero private fields.”
 
@@ -31,7 +31,7 @@ Point to `generated-compact-contract` in the footer and the accepted-proof count
 
 ## 1:25–1:50 — Circuit rejection
 
-Change net return from `64` to `24` and click **Prove privately**.
+Change net return from `64` to `24` and click **Prove opportunity**.
 
 “Twenty-four basis points is below the public minimum. The Compact assertion rejects it, and the accepted-proof counter does not advance.”
 
@@ -41,9 +41,9 @@ Run `npm run check` and show all nine tests passing.
 
 “The tests execute the generated state machine, cover every policy rejection path, verify persistent ledger updates, bind every private fact into the commitment, and confirm that no route text appears in public output.”
 
-Open `NETWORK-PROOF.md` and point to the finalized transaction ID and block height.
+Open `NETWORK-PROOF.md` and point to the public Preview contract, finalized transaction ID, and block height.
 
-“This is also a real proof-server transaction on an isolated Midnight devnet. The proof finalized at block 32, and the indexer returned only the commitment and accepted-proof count.”
+“This is a real proof-server transaction finalized on Midnight Preview at block 925,805. The public contract is `5ff4ed…b53eea`, and the indexer returned only the commitment and accepted-proof count. The private market route and economic inputs did not enter public state.”
 
 ## 2:20–2:30 — Close
 
