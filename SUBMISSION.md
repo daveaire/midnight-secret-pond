@@ -2,21 +2,23 @@
 
 **Project:** Secret Pond Proof
 
-**One line:** Prove a trading opportunity satisfies profitability, speed, and liquidity policy without revealing the token, venues, size, or route.
+**One line:** Prove an executable arbitrage opportunity satisfies profitability, speed, and liquidity policy without revealing the asset, venues, trade size, or market route.
 
 ## Problem
 
-Trading teams need auditability, but public evidence can destroy the edge it proves. A screenshot or dashboard that names the asset and venues lets competitors copy the route before the operator can use it.
+Trading teams need auditability, but public evidence can destroy the edge it proves. An arbitrage market route consists of an asset, buy and sell venues or networks, available liquidity, and a bridge or inventory-rebalancing path. Within that route, an executable arbitrage opportunity is a specific, time-sensitive trade whose expected proceeds remain positive after acquisition cost, trading fees, gas, slippage, bridge cost, and expected rebalancing cost. A screenshot that names those inputs lets competitors copy the route before the operator can use it.
 
 ## Midnight implementation
 
-The Compact contract receives route facts through private witness functions. `proveOpportunity` checks three public rules inside the circuit:
+The Compact contract receives opportunity facts through private witness functions. `proveOpportunity` checks three public rules inside the circuit:
 
 - net return is at least 25 basis points;
 - bridge time is at most 20 minutes;
 - available liquidity is at least $10,000.
 
-Only a persistent commitment and accepted-proof counter enter public ledger state. The route hash, exact return, bridge time, and liquidity remain private. Changing any private fact changes the commitment.
+Only a persistent commitment and accepted-proof counter enter public ledger state. The market-route hash, exact net return, bridge time, and liquidity remain private. Changing any private fact changes the commitment.
+
+The current circuit proves that one observed opportunity satisfies policy. It does not claim that the underlying market route will remain profitable or that quoted liquidity will still exist at execution time.
 
 ## Evidence
 

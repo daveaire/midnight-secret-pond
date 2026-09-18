@@ -4,7 +4,9 @@ Target length: 2 minutes 30 seconds.
 
 ## 0:00–0:20 — Problem
 
-“A trading team needs to prove that it follows profitability, speed, and liquidity rules. Publishing the token, venues, size, or route would reveal the opportunity and destroy the edge. Secret Pond Proof resolves that conflict with Midnight.”
+“A trading team needs to prove that it follows profitability, speed, and liquidity rules. Publishing the asset, venues, size, or market route would reveal the opportunity and destroy the edge. Secret Pond Proof resolves that conflict with Midnight.”
+
+“The project name uses a fishing metaphor. A pond means an arbitrage market route: the asset, buy and sell venues or networks, liquidity, and rebalancing path. A fish means one executable arbitrage opportunity: a time-sensitive trade at a defined size that remains profitable after every execution and rebalancing cost. From here I will use the market terms.”
 
 Show the dashboard headline and the four `HIDDEN` cards.
 
@@ -17,7 +19,7 @@ Open `contract/src/secret-pond.compact` and point to:
 - the assertions in `proveOpportunity`;
 - the disclosed commitment and persistent accepted-proof counter.
 
-“The private route facts enter as witnesses. The circuit enforces all three policy checks. Only a binding commitment and proof counter become public ledger state.”
+“The private opportunity facts enter as witnesses. The circuit enforces all three policy checks. Only a binding commitment and proof counter become public ledger state.”
 
 ## 0:50–1:25 — Accepted proof
 
@@ -41,4 +43,4 @@ Run `npm run check` and show all nine tests passing.
 
 ## 2:15–2:30 — Close
 
-“Secret Pond Proof lets an operator prove that the fish exists without revealing the pond. The same pattern can support private compliance, treasury execution, auctions, and any policy where evidence matters but the underlying data must remain protected.”
+“Secret Pond Proof lets an operator prove that an executable opportunity satisfies policy without revealing the market route. The same pattern can support private compliance, treasury execution, auctions, and any policy where evidence matters but the underlying data must remain protected.”
