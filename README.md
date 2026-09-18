@@ -57,6 +57,7 @@ For Preview or Preprod, select the network, run the proof server locally, fund t
 
 ```sh
 npm run network:select -- preview
+npm run network:address -- --network preview
 npm run proof-server:start
 npm run network:deploy -- --network preview
 npm run network:prove -- --network preview --route synthetic-route-1
