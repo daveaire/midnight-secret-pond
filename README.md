@@ -14,6 +14,7 @@ Ordinary arbitrage dashboards create a conflict: evidence builds trust, but publ
 - Compact language `0.26.0`
 - Compact runtime `0.19.0`
 - Generated prover/verifier keys and ZKIR are under `contract/src/managed`
+- Seven tests execute both the generated Compact state machine and the public-output helper, including every policy rejection path
 
 ```sh
 npm install
