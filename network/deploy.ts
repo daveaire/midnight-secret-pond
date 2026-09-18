@@ -22,6 +22,7 @@ import { httpClientProofProvider } from '@midnight-ntwrk/midnight-js-http-client
 import { indexerPublicDataProvider } from '@midnight-ntwrk/midnight-js-indexer-public-data-provider';
 import { levelPrivateStateProvider } from '@midnight-ntwrk/midnight-js-level-private-state-provider';
 import { NodeZkConfigProvider } from '@midnight-ntwrk/midnight-js-node-zk-config-provider';
+import { submitTransactionOnce } from './submit';
 
 // @ts-expect-error Required for wallet sync
 globalThis.WebSocket = WebSocket;
@@ -98,7 +99,7 @@ async function createProviders(walletCtx: WalletContext) {
       );
       return walletCtx.wallet.finalizeRecipe(recipe);
     },
-    submitTx: (tx: any) => walletCtx.wallet.submitTransaction(tx) as any,
+    submitTx: (tx: any) => submitTransactionOnce(networkConfig.node, tx),
   };
 
   const zkConfigProvider = new NodeZkConfigProvider<'proveOpportunity'>(zkConfigPath);
@@ -225,7 +226,7 @@ async function main() {
       (payload) => walletCtx.unshieldedKeystore.signData(payload),
     );
     const finalized = await walletCtx.wallet.finalizeRecipe(recipe);
-    await walletCtx.wallet.submitTransaction(finalized);
+    await submitTransactionOnce(networkConfig.node, finalized);
   }
 
   if (dustState.dust.balance(new Date()) === 0n) {

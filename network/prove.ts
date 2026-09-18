@@ -17,6 +17,7 @@ import { NodeZkConfigProvider } from '@midnight-ntwrk/midnight-js-node-zk-config
 import { compiledContract, PRIVATE_STATE_ID, SecretPond, zkConfigPath, type OpportunityPrivateState } from './contract';
 import { formatWalletBackupNotice, getDeployment, getOrCreateWallet, resolveNetwork } from './network';
 import { createWallet, persistWalletState, type WalletContext } from './wallet';
+import { submitTransactionOnce } from './submit';
 
 // @ts-expect-error wallet sync requires a global WebSocket implementation
 globalThis.WebSocket = WebSocket;
@@ -64,7 +65,7 @@ async function createProviders(walletCtx: WalletContext) {
       );
       return walletCtx.wallet.finalizeRecipe(recipe);
     },
-    submitTx: (tx: any) => walletCtx.wallet.submitTransaction(tx) as any,
+    submitTx: (tx: any) => submitTransactionOnce(networkConfig.node, tx),
   };
 
   return {

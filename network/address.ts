@@ -18,10 +18,16 @@ async function main(): Promise<void> {
     await persistWalletState(network, walletCtx);
     const address = walletCtx.unshieldedKeystore.getBech32Address().toString();
     const balance = state.unshielded.balances[unshieldedToken().raw] ?? 0n;
+    const registeredUtxos = state.unshielded.availableCoins.filter(
+      (coin: any) => coin.meta?.registeredForDustGeneration,
+    ).length;
+    const dustBalance = state.dust.balance(new Date());
 
     console.log(`Network: ${network}`);
     console.log(`Address: ${address}`);
     console.log(`tNIGHT:  ${balance}`);
+    console.log(`DUST:    ${dustBalance}`);
+    console.log(`DUST-registered UTXOs: ${registeredUtxos}/${state.unshielded.availableCoins.length}`);
     if (networkConfig.faucet) console.log(`Faucet:  ${networkConfig.faucet}`);
     if (walletRecord.created) {
       console.log('Recovery material was created in the owner-only, gitignored .midnight-state.json file.');

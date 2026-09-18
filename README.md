@@ -70,9 +70,9 @@ These versions match Midnight's supported Preview/Preprod compatibility matrix a
 ## Proof status
 
 - **Complete:** Compact source, supported compiler output, ZKIR, proving/verifying keys, generated contract execution, policy assertions, persistent ledger behavior, and nine automated tests.
-- **Verified locally:** the contract was deployed to an isolated Midnight devnet and proof-server `8.1.0` generated a real proof transaction finalized at block 32. See [NETWORK-PROOF.md](NETWORK-PROOF.md).
-- **Pending public evidence:** a Preview or Preprod deployment requires test NIGHT from the relevant faucet.
+- **Verified publicly:** the contract is deployed on Midnight Preview and proof-server `8.1.0` generated a real proof transaction finalized at block `925805`. The public contract address, transaction ID, accepted-proof count, and commitment are recorded in [NETWORK-PROOF.md](NETWORK-PROOF.md).
+- **Verified locally:** the same workflow also finalized on the isolated development network at block `32`.
 
-The local dashboard therefore reports **Compact circuit accepted** rather than claiming that a network transaction has been proven or finalized.
+The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.
