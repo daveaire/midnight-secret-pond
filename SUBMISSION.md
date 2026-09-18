@@ -22,10 +22,12 @@ The current circuit proves that one observed opportunity satisfies policy. It do
 
 ## Evidence
 
-- The contract compiles with Compact `0.34.0` / language `0.26.0`.
+- The contract compiles with the currently supported Compact `0.31.1` / language `0.23.0` / runtime `0.16.0` stack.
 - Generated proving and verification keys are included.
 - Nine tests execute the generated Compact state machine and prove valid acceptance, all three circuit rejection paths, persistent ledger updates, commitment binding, and absence of route text in public output.
 - The interactive dashboard calls `proveOpportunity` on the generated contract, displays the resulting public ledger, and explicitly marks every hidden field.
+
+The repository also includes a Midnight.js 4.1.1 deployment and proof client for the supported proof-server 8.1.0 stack. The dashboard demonstrates generated Compact execution; the submission should describe a proof as finalized only after the network workflow has been run and its transaction metadata recorded.
 
 ## Demo
 
@@ -35,4 +37,4 @@ The current circuit proves that one observed opportunity satisfies policy. It do
 4. Restore valid inputs and show that changing one private fact changes the commitment.
 5. Open the dashboard and contrast public policy with hidden route fields.
 
-Bundled values are synthetic; the product never publishes a production pond.
+Bundled values are synthetic; the product never publishes a production market route.

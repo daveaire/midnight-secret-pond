@@ -31,7 +31,6 @@ async function prepare(state) {
     createConstructorContext(state, '00'.repeat(32)),
   );
   const context = createCircuitContext(
-    'proveOpportunity',
     sampleContractAddress(),
     initial.currentZswapLocalState,
     initial.currentContractState,
@@ -44,13 +43,13 @@ test('generated Compact circuit publishes one commitment for valid private witne
   const state = privateState();
   const { contract, context } = await prepare(state);
   const result = await contract.impureCircuits.proveOpportunity(context);
-  const publicLedger = ledger(result.context.callContext.currentQueryContext.state);
+  const publicLedger = ledger(result.context.currentQueryContext.state);
   assert.equal(publicLedger.acceptedProofs, 1n);
   assert.equal(publicLedger.minNetBps, 25n);
   assert.equal(publicLedger.maxBridgeSeconds, 1200n);
   assert.equal(publicLedger.minLiquidityUsd, 10_000n);
   assert.deepEqual(publicLedger.lastCommitment, result.result);
-  assert.equal(result.context.callContext.currentPrivateState, state);
+  assert.equal(result.context.currentPrivateState, state);
 });
 
 for (const [name, overrides, message] of [
@@ -60,8 +59,8 @@ for (const [name, overrides, message] of [
 ]) {
   test(`generated Compact circuit rejects ${name}`, async () => {
     const { contract, context } = await prepare(privateState(overrides));
-    await assert.rejects(
-      contract.impureCircuits.proveOpportunity(context),
+    assert.throws(
+      () => contract.impureCircuits.proveOpportunity(context),
       new RegExp(message),
     );
   });

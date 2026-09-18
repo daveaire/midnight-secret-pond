@@ -53,15 +53,14 @@ export class CompactSession {
   async prove(input) {
     const state = privateState(input);
     const context = createCircuitContext(
-      'proveOpportunity',
       this.address,
       this.zswapState,
       this.contractState,
       state,
     );
     const result = await this.contract.impureCircuits.proveOpportunity(context);
-    this.contractState = result.context.callContext.currentQueryContext.state;
-    this.zswapState = result.context.callContext.currentZswapLocalState;
+    this.contractState = result.context.currentQueryContext.state;
+    this.zswapState = result.context.currentZswapLocalState;
     return this.publicState(result.result);
   }
 

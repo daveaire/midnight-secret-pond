@@ -2,7 +2,7 @@
 
 Secret Pond Proof is a Midnight privacy DApp for verifying executable arbitrage opportunities. A scanner can prove that a market route clears public thresholds for net return, bridge time, and liquidity while keeping the asset, venues, trade size, and route salt private.
 
-The Compact circuit reads the opportunity facts as witnesses, enforces the policy, and publishes only a persistent commitment and an accepted-proof counter. This lets an operator demonstrate disciplined execution or selectively reveal a route later without broadcasting the pond today.
+The Compact circuit reads the opportunity facts as witnesses, enforces the policy, and publishes only a persistent commitment and an accepted-proof counter. This lets an operator demonstrate disciplined execution or selectively reveal a route later without broadcasting it today.
 
 ## Why Midnight
 
@@ -20,9 +20,10 @@ A route can remain viable even when no executable opportunity exists at the curr
 
 ## Verified build
 
-- Compact toolchain `0.34.0`
-- Compact language `0.26.0`
-- Compact runtime `0.19.0`
+- Compact toolchain `0.31.1`
+- Compact language `0.23.0`
+- Compact runtime `0.16.0`
+- Proof-server target `8.1.0`
 - Generated prover/verifier keys and ZKIR are under `contract/src/managed`
 - Nine tests execute the generated Compact state machine, persistent session ledger, and public-output helper, including every policy rejection path
 
@@ -40,5 +41,37 @@ To regenerate the circuit artifacts with Compact installed:
 ```sh
 npm run compile
 ```
+
+## Network proof
+
+The included Midnight.js workflow can start a local network, deploy the Compact contract, generate a cryptographic proof, submit the transaction, and read the finalized public ledger state:
+
+```sh
+# Requires Docker and the Compact compiler.
+npm run network:setup
+npm run network:prove -- --route synthetic-route-1 \
+  --net-bps 80 --bridge-seconds 600 --liquidity-usd 25000
+```
+
+For Preview or Preprod, select the network, run the proof server locally, fund the generated address with test NIGHT from the displayed faucet, and deploy:
+
+```sh
+npm run network:select -- preview
+npm run proof-server:start
+npm run network:deploy -- --network preview
+npm run network:prove -- --network preview --route synthetic-route-1
+```
+
+The route string is hashed locally. The private state store holds the hash and economic inputs; the command prints only the finalized transaction metadata, accepted-proof count, and public commitment. Use `PRIVATE_STATE_PASSWORD` outside the disposable local devnet.
+
+These versions match Midnight's supported Preview/Preprod compatibility matrix as of September 19, 2026. The dashboard executes the generated Compact contract locally; cryptographic transaction proving and on-chain submission additionally require the local proof server and Midnight.js provider stack described under **Proof status**.
+
+## Proof status
+
+- **Complete:** Compact source, supported compiler output, ZKIR, proving/verifying keys, generated contract execution, policy assertions, persistent ledger behavior, and nine automated tests.
+- **Implemented but not yet executed here:** local-devnet deployment and cryptographic transaction proving through `midnightntwrk/proof-server:8.1.0`.
+- **Pending external infrastructure:** a Docker runtime for the local node, indexer, and proof server; a public-network deployment also requires test NIGHT from the relevant faucet.
+
+The local dashboard therefore reports **Compact circuit accepted** rather than claiming that a network transaction has been proven or finalized.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.

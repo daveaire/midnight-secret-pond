@@ -33,7 +33,7 @@ http.createServer(async (request, response) => {
   if (request.method === 'GET' && request.url === '/api/proof') {
     sendJson(response, 200, {
       ...latestProof,
-      compiler: { toolchain: '0.34.0', language: '0.26.0', runtime: '0.19.0' },
+      compiler: { toolchain: '0.31.1', language: '0.23.0', runtime: '0.16.0' },
       demoData: 'synthetic',
     });
     return;
@@ -43,7 +43,7 @@ http.createServer(async (request, response) => {
       latestProof = await session.prove(await readJson(request));
       sendJson(response, 200, {
         ...latestProof,
-        compiler: { toolchain: '0.34.0', language: '0.26.0', runtime: '0.19.0' },
+        compiler: { toolchain: '0.31.1', language: '0.23.0', runtime: '0.16.0' },
         demoData: 'synthetic',
       });
     } catch (error) {

@@ -1,5 +1,5 @@
 import * as __compactRuntime from '@midnight-ntwrk/compact-runtime';
-__compactRuntime.checkRuntimeVersion('0.19.0');
+__compactRuntime.checkRuntimeVersion('0.16.0');
 
 const _descriptor_0 = new __compactRuntime.CompactTypeBytes(32);
 
@@ -49,8 +49,6 @@ const _descriptor_7 = new _ContractAddress_0();
 
 const _descriptor_8 = new __compactRuntime.CompactTypeUnsignedInteger(255n, 1);
 
-const _descriptor_9 = new __compactRuntime.CompactTypeUnsignedInteger(4294967295n, 4);
-
 export class Contract {
   witnesses;
   constructor(...args_0) {
@@ -75,32 +73,30 @@ export class Contract {
     }
     this.witnesses = witnesses_0;
     this.circuits = {
-      proveOpportunity: async (...args_1) => {
+      proveOpportunity: (...args_1) => {
         if (args_1.length !== 1) {
           throw new __compactRuntime.CompactError(`proveOpportunity: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
-        if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.callContext.currentQueryContext != undefined)) {
+        if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('proveOpportunity',
                                      'argument 1 (as invoked from Typescript)',
                                      'secret-pond.compact line 22 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
-        const context = __compactRuntime.copyCircuitContext(contextOrig_0);
+        const context = { ...contextOrig_0, gasCost: __compactRuntime.emptyRunningCost() };
         const partialProofData = {
           input: { value: [], alignment: [] },
           output: undefined,
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = await this._proveOpportunity_0(context,
-                                                        partialProofData);
+        const result_0 = this._proveOpportunity_0(context, partialProofData);
         partialProofData.output = { value: _descriptor_0.toValue(result_0), alignment: _descriptor_0.alignment() };
-        __compactRuntime.finalizeCallProofData(context, partialProofData);
-        return { result: result_0, context: context, gasCost: context.callContext.currentGasCost };
+        return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      async opportunityCommitment(context, ...args_1) {
+      opportunityCommitment(context, ...args_1) {
         return { result: pureCircuits.opportunityCommitment(...args_1), context };
       }
     };
@@ -109,7 +105,7 @@ export class Contract {
       proveOpportunity: this.circuits.proveOpportunity
     };
   }
-  async initialState(...args_0) {
+  initialState(...args_0) {
     if (args_0.length !== 1) {
       throw new __compactRuntime.CompactError(`Contract state constructor: expected 1 argument (as invoked from Typescript), received ${args_0.length}`);
     }
@@ -135,7 +131,7 @@ export class Contract {
     stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     state_0.data = new __compactRuntime.ChargedState(stateValue_0);
     state_0.setOperation('proveOpportunity', new __compactRuntime.ContractOperation());
-    const context = __compactRuntime.createCircuitContext('constructor', __compactRuntime.dummyContractAddress(), constructorContext_0.initialZswapLocalState.coinPublicKey, state_0.data, constructorContext_0.initialPrivateState);
+    const context = __compactRuntime.createCircuitContext(__compactRuntime.dummyContractAddress(), constructorContext_0.initialZswapLocalState.coinPublicKey, state_0.data, constructorContext_0.initialPrivateState);
     const partialProofData = {
       input: { value: [], alignment: [] },
       output: undefined,
@@ -225,11 +221,11 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(tmp_2),
                                                                                               alignment: _descriptor_1.alignment() }).encode() } },
                                        { ins: { cached: false, n: 1 } }]);
-    state_0.data = new __compactRuntime.ChargedState(context.callContext.currentQueryContext.state.state);
+    state_0.data = new __compactRuntime.ChargedState(context.currentQueryContext.state.state);
     return {
       currentContractState: state_0,
-      currentPrivateState: context.callContext.currentPrivateState,
-      currentZswapLocalState: context.callContext.currentZswapLocalState
+      currentPrivateState: context.currentPrivateState,
+      currentZswapLocalState: context.currentZswapLocalState
     }
   }
   _persistentHash_0(value_0) {
@@ -237,9 +233,9 @@ export class Contract {
     return result_0;
   }
   _privateRouteHash_0(context, partialProofData) {
-    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.callContext.currentQueryContext.state), context.callContext.currentPrivateState, context.callContext.currentQueryContext.address);
+    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
     const [nextPrivateState_0, result_0] = this.witnesses.privateRouteHash(witnessContext_0);
-    context.callContext.currentPrivateState = nextPrivateState_0;
+    context.currentPrivateState = nextPrivateState_0;
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
       __compactRuntime.typeError('privateRouteHash',
                                  'return value',
@@ -254,9 +250,9 @@ export class Contract {
     return result_0;
   }
   _privateNetBps_0(context, partialProofData) {
-    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.callContext.currentQueryContext.state), context.callContext.currentPrivateState, context.callContext.currentQueryContext.address);
+    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
     const [nextPrivateState_0, result_0] = this.witnesses.privateNetBps(witnessContext_0);
-    context.callContext.currentPrivateState = nextPrivateState_0;
+    context.currentPrivateState = nextPrivateState_0;
     if (!(typeof(result_0) === 'bigint' && result_0 >= 0n && result_0 <= 18446744073709551615n)) {
       __compactRuntime.typeError('privateNetBps',
                                  'return value',
@@ -271,9 +267,9 @@ export class Contract {
     return result_0;
   }
   _privateBridgeSeconds_0(context, partialProofData) {
-    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.callContext.currentQueryContext.state), context.callContext.currentPrivateState, context.callContext.currentQueryContext.address);
+    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
     const [nextPrivateState_0, result_0] = this.witnesses.privateBridgeSeconds(witnessContext_0);
-    context.callContext.currentPrivateState = nextPrivateState_0;
+    context.currentPrivateState = nextPrivateState_0;
     if (!(typeof(result_0) === 'bigint' && result_0 >= 0n && result_0 <= 18446744073709551615n)) {
       __compactRuntime.typeError('privateBridgeSeconds',
                                  'return value',
@@ -288,9 +284,9 @@ export class Contract {
     return result_0;
   }
   _privateLiquidityUsd_0(context, partialProofData) {
-    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.callContext.currentQueryContext.state), context.callContext.currentPrivateState, context.callContext.currentQueryContext.address);
+    const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
     const [nextPrivateState_0, result_0] = this.witnesses.privateLiquidityUsd(witnessContext_0);
-    context.callContext.currentPrivateState = nextPrivateState_0;
+    context.currentPrivateState = nextPrivateState_0;
     if (!(typeof(result_0) === 'bigint' && result_0 >= 0n && result_0 <= 18446744073709551615n)) {
       __compactRuntime.typeError('privateLiquidityUsd',
                                  'return value',
@@ -304,7 +300,7 @@ export class Contract {
     });
     return result_0;
   }
-  async _proveOpportunity_0(context, partialProofData) {
+  _proveOpportunity_0(context, partialProofData) {
     const routeHash_0 = this._privateRouteHash_0(context, partialProofData);
     const netBps_0 = this._privateNetBps_0(context, partialProofData);
     const bridgeSeconds_0 = this._privateBridgeSeconds_0(context,
@@ -408,15 +404,15 @@ export class Contract {
   {
     return this._persistentHash_0([new Uint8Array([115, 101, 99, 114, 101, 116, 45, 112, 111, 110, 100, 58, 118, 49, 58, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]),
                                    routeHash_0,
-                                   __compactRuntime.convertBigintToBytes(32,
-                                                                         netBps_0,
-                                                                         'secret-pond.compact line 48 char 5'),
-                                   __compactRuntime.convertBigintToBytes(32,
-                                                                         bridgeSeconds_0,
-                                                                         'secret-pond.compact line 49 char 5'),
-                                   __compactRuntime.convertBigintToBytes(32,
-                                                                         liquidityUsd_0,
-                                                                         'secret-pond.compact line 50 char 5')]);
+                                   __compactRuntime.convertFieldToBytes(32,
+                                                                        netBps_0,
+                                                                        'secret-pond.compact line 48 char 5'),
+                                   __compactRuntime.convertFieldToBytes(32,
+                                                                        bridgeSeconds_0,
+                                                                        'secret-pond.compact line 49 char 5'),
+                                   __compactRuntime.convertFieldToBytes(32,
+                                                                        liquidityUsd_0,
+                                                                        'secret-pond.compact line 50 char 5')]);
   }
   _equal_0(x0, y0) {
     if (!x0.every((x, i) => y0[i] === x)) { return false; }
@@ -427,7 +423,7 @@ export function ledger(stateOrChargedState) {
   const state = stateOrChargedState instanceof __compactRuntime.StateValue ? stateOrChargedState : stateOrChargedState.state;
   const chargedState = stateOrChargedState instanceof __compactRuntime.StateValue ? new __compactRuntime.ChargedState(stateOrChargedState) : stateOrChargedState;
   const context = {
-    callContext: { currentQueryContext: new __compactRuntime.QueryContext(chargedState, __compactRuntime.dummyContractAddress()), currentGasCost: __compactRuntime.emptyRunningCost() },
+    currentQueryContext: new __compactRuntime.QueryContext(chargedState, __compactRuntime.dummyContractAddress()),
     costModel: __compactRuntime.CostModel.initialCostModel()
   };
   const partialProofData = {
@@ -510,7 +506,7 @@ export function ledger(stateOrChargedState) {
   };
 }
 const _emptyContext = {
-  callContext: { currentQueryContext: new __compactRuntime.QueryContext(new __compactRuntime.ContractState().data, __compactRuntime.dummyContractAddress()), currentGasCost: __compactRuntime.emptyRunningCost() }
+  currentQueryContext: new __compactRuntime.QueryContext(new __compactRuntime.ContractState().data, __compactRuntime.dummyContractAddress())
 };
 const _dummyContract = new Contract({
   privateRouteHash: (...args) => undefined,
@@ -563,8 +559,4 @@ export const pureCircuits = {
 };
 export const contractReferenceLocations =
   { tag: 'publicLedgerArray', indices: { } };
-export const expectedVk = {
-  'proveOpportunity': '1c0243ccdcdd547d6b8a95e9f70f970a7f38ddf755c7435123e49280e5fc6072',
-};
-
 //# sourceMappingURL=index.js.map
