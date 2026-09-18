@@ -22,8 +22,8 @@ Only a persistent commitment and accepted-proof counter enter public ledger stat
 
 - The contract compiles with Compact `0.34.0` / language `0.26.0`.
 - Generated proving and verification keys are included.
-- Seven tests execute the generated Compact state machine and prove valid acceptance, all three circuit rejection paths, commitment binding, and absence of route text in public output.
-- The dashboard shows the public proof surface and explicitly marks every hidden field.
+- Nine tests execute the generated Compact state machine and prove valid acceptance, all three circuit rejection paths, persistent ledger updates, commitment binding, and absence of route text in public output.
+- The interactive dashboard calls `proveOpportunity` on the generated contract, displays the resulting public ledger, and explicitly marks every hidden field.
 
 ## Demo
 
