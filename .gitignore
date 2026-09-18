@@ -4,4 +4,5 @@ node_modules/
 .midnight-state.json
 .midnight-wallet-state/
 *-state/
+midnight-level-db/
 dist/

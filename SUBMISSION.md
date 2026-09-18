@@ -26,8 +26,9 @@ The current circuit proves that one observed opportunity satisfies policy. It do
 - Generated proving and verification keys are included.
 - Nine tests execute the generated Compact state machine and prove valid acceptance, all three circuit rejection paths, persistent ledger updates, commitment binding, and absence of route text in public output.
 - The interactive dashboard calls `proveOpportunity` on the generated contract, displays the resulting public ledger, and explicitly marks every hidden field.
+- A real proof-server `8.1.0` transaction finalized on the isolated Midnight devnet at block 32. The transaction ID, contract address, accepted-proof count, and public commitment are recorded in `NETWORK-PROOF.md`.
 
-The repository also includes a Midnight.js 4.1.1 deployment and proof client for the supported proof-server 8.1.0 stack. The dashboard demonstrates generated Compact execution; the submission should describe a proof as finalized only after the network workflow has been run and its transaction metadata recorded.
+The repository includes the Midnight.js 4.1.1 deployment and proof client used for that run. The dashboard demonstrates generated Compact execution; `NETWORK-PROOF.md` distinguishes the finalized local-devnet transaction from permanent public-network evidence.
 
 ## Demo
 

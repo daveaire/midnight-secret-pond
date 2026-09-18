@@ -35,12 +35,16 @@ Change net return from `64` to `24` and click **Prove privately**.
 
 “Twenty-four basis points is below the public minimum. The Compact assertion rejects it, and the accepted-proof counter does not advance.”
 
-## 1:50–2:15 — Verification evidence
+## 1:50–2:20 — Verification evidence
 
 Run `npm run check` and show all nine tests passing.
 
 “The tests execute the generated state machine, cover every policy rejection path, verify persistent ledger updates, bind every private fact into the commitment, and confirm that no route text appears in public output.”
 
-## 2:15–2:30 — Close
+Open `NETWORK-PROOF.md` and point to the finalized transaction ID and block height.
+
+“This is also a real proof-server transaction on an isolated Midnight devnet. The proof finalized at block 32, and the indexer returned only the commitment and accepted-proof count.”
+
+## 2:20–2:30 — Close
 
 “Secret Pond Proof lets an operator prove that an executable opportunity satisfies policy without revealing the market route. The same pattern can support private compliance, treasury execution, auctions, and any policy where evidence matters but the underlying data must remain protected.”

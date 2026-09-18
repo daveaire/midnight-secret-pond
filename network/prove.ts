@@ -138,6 +138,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((error) => {
-  console.error(`\n❌ ${error instanceof Error ? error.message : String(error)}`);
+  console.error('\n❌ Proof transaction failed');
+  console.error(error);
   process.exit(1);
 });
