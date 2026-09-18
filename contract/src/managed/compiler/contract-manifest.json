@@ -1,0 +1,58 @@
+{
+  "manifest-version": "1",
+  "compiler-version": "0.34.0",
+  "language-version": "0.26.0",
+  "runtime-version": "0.19.0",
+  "compiler": {
+    "type": "directory",
+    "contract-info.json": {
+      "type": "file",
+      "size": 2814,
+      "hash": "bde6fe0141346bec07d972730e6d934beee09d6100ba9b44f123b6e67633a235"
+    }
+  },
+  "contract": {
+    "type": "directory",
+    "index.d.ts": {
+      "type": "file",
+      "size": 2395,
+      "hash": "6de97f7cd6b358679d317527d6238f896a7f11422242e2d302b0ea30c671af6c"
+    },
+    "index.js": {
+      "type": "file",
+      "size": 39170,
+      "hash": "948a89a44cef2fef386c3d00d6867f868375f69928ebc4f738123ff3eb34c566"
+    },
+    "index.js.map": {
+      "type": "file",
+      "size": 1697,
+      "hash": "a08b4cfeff5bb7f1a9d71b75a7579235fcb77aba3b24c43a0ce4d47e4ec72096"
+    }
+  },
+  "zkir": {
+    "type": "directory",
+    "proveOpportunity.bzkir": {
+      "type": "file",
+      "size": 391,
+      "hash": "6e012fd9e283b5a5b1d289cf00015dfb10b2b9ed3ca648182d3061cfe6260d2f"
+    },
+    "proveOpportunity.zkir": {
+      "type": "file",
+      "size": 6313,
+      "hash": "885db148111605b63e56548054dbf088d6d952bcbac9117653dd87a1cd11185a"
+    }
+  },
+  "keys": {
+    "type": "directory",
+    "proveOpportunity.prover": {
+      "type": "file",
+      "size": 2832112,
+      "hash": "0060b38c54956c2eb2abee1a0b280c00013545f76c74f15e752cab55e0bf3cd4"
+    },
+    "proveOpportunity.verifier": {
+      "type": "file",
+      "size": 2119,
+      "hash": "1c0243ccdcdd547d6b8a95e9f70f970a7f38ddf755c7435123e49280e5fc6072"
+    }
+  }
+}

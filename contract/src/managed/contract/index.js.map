@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../../",
+  "sources": ["contract/src/secret-pond.compact", "compiler/zkir-v3-library.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAUA;;;;;;;;;;;;;;;;;;;;;;MAWA,AAAA,gBAeC;;;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,MAAA,qBAaC;;OAAA;;;;;;GArCA;EAJD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IANA;;;;;;;;;yEAAsC;IACtC;;;;;;;;;yEAAwC;IACxC;;;;;;;;;yEAAkC;IAClC;;;;;;;;;yEAAyC;IACzC;;;;;;;;;yEAAwC;UAGtC,KAAS;IAAT;;;;;;;2HAAA,KAAS;;yEAAA;UACT,KAAgB;IAAhB;;;;;;;2HAAA,KAAgB;;yEAAA;UAChB,KAAe;IAAf;;;;;;;2HAAA,KAAe;;yEAAA;;;;;;;GAChB;ECdD,AAAA,kBAAA;oEAAA;;;EDgBA,AAAA,mBAAsC;;0DAAtC,gBAAsC;;;;;;;;;;;;;;GAAA;EACtC,AAAA,gBAAkC;;0DAAlC,aAAkC;;;;;;;;;;;;;;GAAA;EAClC,AAAA,uBAAyC;;0DAAzC,oBAAyC;;;;;;;;;;;;;;GAAA;EACzC,AAAA,sBAAwC;;0DAAxC,mBAAwC;;;;;;;;;;;;;;GAAA;EAExC,AAAA,yBAeC;UAdO,WAA8B;UAC9B,QAAwB;UACxB,eAAsC;;UACtC,cAAoC;4BAEnC,QAAM;;oDAAI;;;;;;;;;;;yHAAS;;4BACnB,eAAa;;oDAAI;;;;;;;;;;;yHAAgB;;4BACjC,cAAY;;oDAAI;;;;;;;;;;;yHAAe;;UAEhC,YAAkF,iCAA/C,WAAS;uDAAE,QAAM;uDAAE,eAAa;uDAAE,cAAY;2CAChF,YAAU;mEAAI;;;;;;;;;;;wIAAc;;IACnC;;;;;;;2HAA0B,YAAU;;yEAAtB;UACd,KAAc;IAAd;;;;;;;;;;6FAAA,KAAc;;;;wEAAA;WACE,YAAU;GAC3B;EAED,AAAA,wBAaC,CAZC,WAAoB;2BACpB,QAAgB;2BAChB,eAAuB;2BACvB,cAAsB;;;mCAIpB,WAAS;;yEACT,QAAM;;;yEACN,eAAa;;;yEACb,cAAY;;GAEf;;;;;;;;;;;;;;;;;;;;IA/CD;qCAAA;;;;;;;;;;;0GAAsC;KAAA;IACtC;qCAAA;;;;;;;;;;;0GAAwC;KAAA;IACxC;qCAAA;;;;;;;;;;;0GAAkC;KAAA;IAClC;qCAAA;;;;;;;;;;;0GAAyC;KAAA;IACzC;qCAAA;;;;;;;;;;;0GAAwC;KAAA;;;;;;;;;;;;;EA8BxC,AAAA,qBAaC;;;;UAZC,WAAoB;UACpB,QAAgB;UAChB,eAAuB;UACvB,cAAsB;;;;;;;;;;;;;;;;;;;;;;;;;;;;;mDAHtB,WAAoB;mDACpB,QAAgB;mDAChB,eAAuB;mDACvB,cAAsB;GASvB;;;;;;;;"
+}

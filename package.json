@@ -1,0 +1,17 @@
+{
+  "name": "midnight-secret-pond",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A Midnight ZK proof that an arbitrage opportunity satisfies policy without revealing the pond.",
+  "scripts": {
+    "compile": "compact compile contract/src/secret-pond.compact contract/src/managed",
+    "test": "node --test test/*.test.js",
+    "check": "node --check src/proof.js && node --check src/server.js && npm test",
+    "demo": "node src/demo.js",
+    "dashboard": "node src/server.js"
+  },
+  "dependencies": {
+    "@midnight-ntwrk/compact-runtime": "0.19.0"
+  }
+}
