@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/daveaire/midnight-secret-pond/actions/workflows/ci.yml/badge.svg)](https://github.com/daveaire/midnight-secret-pond/actions/workflows/ci.yml)
 
+Live browser demo: <https://daveaire.github.io/midnight-secret-pond/>
+
 Secret Pond Proof is a Midnight privacy DApp for verifying executable arbitrage opportunities. A scanner can prove that a market route clears public thresholds for net return, bridge time, and liquidity while keeping the asset, venues, trade size, and route salt private.
 
 The Compact circuit reads the opportunity facts as witnesses, enforces the policy, and publishes only a persistent commitment and an accepted-proof counter. This lets an operator demonstrate disciplined execution or selectively reveal a route later without broadcasting it today.
@@ -29,7 +31,7 @@ A route can remain viable even when no executable opportunity exists at the curr
 - Generated prover/verifier keys and ZKIR are under `contract/src/managed`
 - Nine tests execute the generated Compact state machine, persistent session ledger, and public-output helper, including every policy rejection path
 
-The dashboard calls `proveOpportunity` on the generated Compact contract. It also detects Lace through the official `window.midnight` connector, requests a Preprod connection, verifies the wallet-reported network, displays the unshielded address, and supports disconnecting the local DApp session. Connecting does not sign or submit a transaction. Try a valid private route, then set net return below 25 bps to watch the circuit reject it without publishing the route.
+The hosted dashboard bundles the generated Compact contract and official runtime WebAssembly, so `proveOpportunity` executes directly in the browser. It also detects Lace through the official `window.midnight` connector, requests a Preprod connection, verifies the wallet-reported network, displays the unshielded address, and supports disconnecting the local DApp session. Connecting does not sign or submit a transaction. Try a valid private route, then set net return below 25 bps to watch the circuit reject it without publishing the route.
 
 ```sh
 npm install
