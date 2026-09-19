@@ -29,7 +29,7 @@ A route can remain viable even when no executable opportunity exists at the curr
 - Generated prover/verifier keys and ZKIR are under `contract/src/managed`
 - Nine tests execute the generated Compact state machine, persistent session ledger, and public-output helper, including every policy rejection path
 
-The dashboard calls `proveOpportunity` on the generated Compact contract. Try a valid private route, then set net return below 25 bps to watch the circuit reject it without publishing the route.
+The dashboard calls `proveOpportunity` on the generated Compact contract. It also detects Lace through the official `window.midnight` connector, requests a Preprod connection, verifies the wallet-reported network, displays the unshielded address, and supports disconnecting the local DApp session. Connecting does not sign or submit a transaction. Try a valid private route, then set net return below 25 bps to watch the circuit reject it without publishing the route.
 
 ```sh
 npm install
@@ -91,6 +91,6 @@ GitHub Actions runs `npm ci` and `npm run check` on every push and pull request.
 
 The project's evidence against Rise In's separate Midnight Monthly Moonshots levels is recorded in [MOONSHOT.md](MOONSHOT.md). That document distinguishes completed proof from remaining wallet, hosting, and user-adoption gates.
 
-The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network.
+The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network. A Preprod deployment is still required before claiming Moonshots Level 2 completion.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.

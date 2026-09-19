@@ -8,6 +8,7 @@
     "compile": "compact compile contract/src/secret-pond.compact contract/src/managed",
     "test": "node --test test/*.test.js",
     "check": "node --check src/proof.js && node --check src/server.js && npm run typecheck && npm test",
+    "build:web": "node scripts/build-web.js",
     "typecheck": "tsc --noEmit",
     "demo": "node src/demo.js",
     "dashboard": "node src/server.js",
@@ -43,6 +44,8 @@
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/ws": "^8.18.1",
+    "esbuild": "^0.25.10",
+    "esbuild-plugin-wasm": "^1.1.0",
     "tsx": "^4.23.1",
     "typescript": "^6.0.3"
   },

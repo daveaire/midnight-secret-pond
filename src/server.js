@@ -6,6 +6,8 @@ import { CompactSession } from './compact-session.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const page = fs.readFileSync(path.join(root, 'web/index.html'));
+const browserProof = fs.readFileSync(path.join(root, 'web/proof-client.bundle.js'));
+const browserRuntime = fs.readFileSync(path.join(root, 'web/midnight-runtime.wasm'));
 const port = Number(process.env.PORT || 4190);
 const session = await CompactSession.create();
 let latestProof = await session.prove({
@@ -58,6 +60,16 @@ http.createServer(async (request, response) => {
   if (request.url === '/' || request.url === '/index.html') {
     response.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     response.end(page);
+    return;
+  }
+  if (request.method === 'GET' && request.url === '/proof-client.bundle.js') {
+    response.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-store' });
+    response.end(browserProof);
+    return;
+  }
+  if (request.method === 'GET' && request.url === '/midnight-runtime.wasm') {
+    response.writeHead(200, { 'Content-Type': 'application/wasm', 'Cache-Control': 'no-store' });
+    response.end(browserRuntime);
     return;
   }
   response.writeHead(404).end('Not found');

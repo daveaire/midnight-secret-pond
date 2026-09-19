@@ -1,7 +1,136 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Secret Pond Proof</title>
-<style>
-:root{color-scheme:dark;--bg:#060713;--panel:#111326;--line:#292d52;--muted:#9da4c7;--text:#f7f8ff;--violet:#a98bff;--cyan:#66e3ff;--green:#68f0aa;--red:#ff7e92}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -20%,#332267 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}main{width:min(1120px,calc(100% - 44px));margin:auto;padding:38px 0 60px}nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px}.brand{font-weight:800;display:flex;gap:12px;align-items:center}.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));color:#090a16}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 11px;color:var(--muted);font-size:12px}h1{font-size:clamp(46px,6vw,76px);line-height:1;letter-spacing:-.06em;margin:0;max-width:900px}.accent{color:var(--violet)}.lede{font-size:19px;color:#b7bddb;max-width:800px;margin:22px 0 34px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel{background:linear-gradient(180deg,#14172c,#0e1020);border:1px solid var(--line);border-radius:18px;padding:25px}.label{text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--muted)}.status{font-size:32px;color:var(--green);font-weight:800;margin:5px 0 16px}.status.rejected{color:var(--red)}.commit{word-break:break-all;background:#090b19;border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--cyan);font:13px/1.5 ui-monospace,monospace}.rules{display:grid;gap:11px;margin-top:15px}.rule{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px}.rule b{color:var(--green)}.private{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.private .panel{text-align:center}.private strong{display:block;font-size:22px;margin-top:6px}.lock{color:var(--violet)}.runner{margin-top:16px}.form-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px;margin:15px 0}label{color:var(--muted);font-size:12px}input{display:block;width:100%;margin-top:5px;padding:11px 12px;background:#090b19;border:1px solid var(--line);border-radius:9px;color:var(--text)}button{background:linear-gradient(135deg,var(--violet),#6db9ff);border:0;border-radius:10px;padding:11px 17px;color:#090a16;font-weight:800;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.runner-row{display:flex;align-items:center;gap:14px}.hint{color:var(--muted);font-size:12px}.foot{display:flex;justify-content:space-between;margin-top:20px;color:var(--muted);font-size:12px}@media(max-width:800px){.grid,.private,.form-grid{grid-template-columns:1fr}.foot{display:block}}
-</style></head><body><main><nav><div class="brand"><span class="mark">S</span>Secret Pond Proof</div><span class="pill">Midnight · Compact · zero knowledge</span></nav><h1>Prove the opportunity exists. <span class="accent">Keep the route confidential.</span></h1><p class="lede">A scanner proves that an executable arbitrage opportunity satisfies net-return, bridge-time, and liquidity policy. The asset, venues, market route, trade size, and salt remain private.</p><section class="grid"><div class="panel"><div class="label">Public verification result</div><div class="status" id="status">Loading proof…</div><div class="label">Opportunity commitment</div><div class="commit" id="commitment">—</div></div><div class="panel"><div class="label">Public Compact ledger</div><div class="rules"><div class="rule"><span>Accepted opportunities</span><b id="count">—</b></div><div class="rule"><span>Minimum net return</span><b id="net">—</b></div><div class="rule"><span>Maximum bridge time</span><b id="bridge">—</b></div><div class="rule"><span>Minimum executable liquidity</span><b id="liquidity">—</b></div><div class="rule"><span>Private fields disclosed</span><b id="disclosed">—</b></div></div></div></section><section class="private"><div class="panel"><span class="label">Asset / pair</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Buy + sell venues</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Trade size</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Market route + salt</span><strong class="lock">HIDDEN</strong></div></section><section class="panel runner"><div class="label">Run the generated Compact circuit</div><div class="form-grid"><label>Private market route + salt<input id="route" value="synthetic-venue-a:asset-y:venue-b:salt-99"></label><label>Net return after costs (bps)<input id="netInput" type="number" value="64"></label><label>Bridge time (seconds)<input id="bridgeInput" type="number" value="480"></label><label>Executable liquidity (USD)<input id="liquidityInput" type="number" value="30000"></label></div><div class="runner-row"><button id="prove">Prove opportunity</button><span class="hint" id="message">Only the commitment and ledger counters are returned.</span></div></section><div class="foot"><span id="compiler">Compiled proof circuit</span><span>Synthetic demo · no production market route disclosed</span></div></main><script>
-const $=id=>document.querySelector('#'+id);function render(x){$('status').textContent=x.accepted?'POLICY PASSED':'REJECTED';$('status').classList.toggle('rejected',!x.accepted);if(x.commitment)$('commitment').textContent=x.commitment;if(x.acceptedProofs!==undefined)$('count').textContent=x.acceptedProofs;if(x.publicPolicy){$('net').textContent=x.publicPolicy.minimumNetBps+' bps';$('bridge').textContent=x.publicPolicy.maximumBridgeSeconds/60+' min';$('liquidity').textContent='$'+x.publicPolicy.minimumLiquidityUsd.toLocaleString()}$('disclosed').textContent=x.privateFieldsDisclosed?.length??0;if(x.compiler)$('compiler').textContent=`Compact ${x.compiler.language} · runtime ${x.compiler.runtime} · ${x.execution.engine}`}
-fetch('/api/proof').then(r=>r.json()).then(render);$('prove').onclick=async()=>{$('prove').disabled=true;$('message').textContent='Executing proveOpportunity…';const response=await fetch('/api/proof',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({secretRoute:$('route').value,netBps:$('netInput').value,bridgeSeconds:$('bridgeInput').value,liquidityUsd:$('liquidityInput').value})});const result=await response.json();render(result);$('message').textContent=response.ok?'Compact circuit accepted the private witnesses.':result.error;$('prove').disabled=false};
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Secret Pond Proof</title>
+  <style>
+    :root{color-scheme:dark;--bg:#060713;--panel:#111326;--line:#292d52;--muted:#9da4c7;--text:#f7f8ff;--violet:#a98bff;--cyan:#66e3ff;--green:#68f0aa;--red:#ff7e92}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 70% -20%,#332267 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}main{width:min(1120px,calc(100% - 44px));margin:auto;padding:38px 0 60px}nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px}.brand{font-weight:800;display:flex;gap:12px;align-items:center}.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));color:#090a16}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 11px;color:var(--muted);font-size:12px}h1{font-size:clamp(46px,6vw,76px);line-height:1;letter-spacing:-.06em;margin:0;max-width:900px}.accent{color:var(--violet)}.lede{font-size:19px;color:#b7bddb;max-width:800px;margin:22px 0 34px}.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.panel{background:linear-gradient(180deg,#14172c,#0e1020);border:1px solid var(--line);border-radius:18px;padding:25px}.label{text-transform:uppercase;letter-spacing:.12em;font-size:11px;color:var(--muted)}.status{font-size:32px;color:var(--green);font-weight:800;margin:5px 0 16px}.status.rejected{color:var(--red)}.commit{word-break:break-all;background:#090b19;border:1px solid var(--line);border-radius:12px;padding:14px;color:var(--cyan);font:13px/1.5 ui-monospace,monospace}.rules{display:grid;gap:11px;margin-top:15px}.rule{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:11px}.rule b{color:var(--green)}.private{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.private .panel{text-align:center}.private strong{display:block;font-size:22px;margin-top:6px}.lock{color:var(--violet)}
+    .wallet{margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:18px}.wallet-copy{min-width:0}.wallet-state{font-size:18px;font-weight:800;margin:3px 0}.wallet-address{color:var(--cyan);font:12px/1.5 ui-monospace,monospace;overflow-wrap:anywhere}.wallet-actions{display:flex;gap:9px;flex-shrink:0}.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}
+    .runner{margin-top:16px}.form-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:12px;margin:15px 0}label{color:var(--muted);font-size:12px}input{display:block;width:100%;margin-top:5px;padding:11px 12px;background:#090b19;border:1px solid var(--line);border-radius:9px;color:var(--text)}button{background:linear-gradient(135deg,var(--violet),#6db9ff);border:0;border-radius:10px;padding:11px 17px;color:#090a16;font-weight:800;cursor:pointer}button:disabled{opacity:.5;cursor:wait}.runner-row{display:flex;align-items:center;gap:14px}.hint{color:var(--muted);font-size:12px}.foot{display:flex;justify-content:space-between;margin-top:20px;color:var(--muted);font-size:12px}@media(max-width:800px){.grid,.private,.form-grid{grid-template-columns:1fr}.wallet{align-items:flex-start;flex-direction:column}.foot{display:block}}
+  </style>
+</head>
+<body>
+<main>
+  <nav><div class="brand"><span class="mark">S</span>Secret Pond Proof</div><span class="pill">Midnight · Compact · zero knowledge</span></nav>
+  <h1>Prove the opportunity exists. <span class="accent">Keep the route confidential.</span></h1>
+  <p class="lede">A scanner proves that an executable arbitrage opportunity satisfies net-return, bridge-time, and liquidity policy. The asset, venues, market route, trade size, and salt remain private.</p>
+  <section class="panel wallet" aria-labelledby="wallet-heading">
+    <div class="wallet-copy"><div class="label" id="wallet-heading">Lace wallet · Midnight Preprod</div><div class="wallet-state" id="walletState">Checking for Lace…</div><div class="wallet-address" id="walletAddress">No wallet permission requested.</div></div>
+    <div class="wallet-actions"><button id="refreshWallet" class="secondary" type="button">Refresh</button><button id="connectWallet" type="button">Connect Lace</button><button id="disconnectWallet" class="secondary" type="button" hidden>Disconnect</button></div>
+  </section>
+  <section class="grid">
+    <div class="panel"><div class="label">Public verification result</div><div class="status" id="status">Loading proof…</div><div class="label">Opportunity commitment</div><div class="commit" id="commitment">—</div></div>
+    <div class="panel"><div class="label">Public Compact ledger</div><div class="rules"><div class="rule"><span>Accepted opportunities</span><b id="count">—</b></div><div class="rule"><span>Minimum net return</span><b id="net">—</b></div><div class="rule"><span>Maximum bridge time</span><b id="bridge">—</b></div><div class="rule"><span>Minimum executable liquidity</span><b id="liquidity">—</b></div><div class="rule"><span>Private fields disclosed</span><b id="disclosed">—</b></div></div></div>
+  </section>
+  <section class="private"><div class="panel"><span class="label">Asset / pair</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Buy + sell venues</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Trade size</span><strong class="lock">HIDDEN</strong></div><div class="panel"><span class="label">Market route + salt</span><strong class="lock">HIDDEN</strong></div></section>
+  <section class="panel runner"><div class="label">Run the generated Compact circuit</div><div class="form-grid"><label>Private market route + salt<input id="route" value="synthetic-venue-a:asset-y:venue-b:salt-99"></label><label>Net return after costs (bps)<input id="netInput" type="number" value="64"></label><label>Bridge time (seconds)<input id="bridgeInput" type="number" value="480"></label><label>Executable liquidity (USD)<input id="liquidityInput" type="number" value="30000"></label></div><div class="runner-row"><button id="prove">Prove opportunity</button><span class="hint" id="message">Only the commitment and ledger counters are returned.</span></div></section>
+  <div class="foot"><span id="compiler">Compiled proof circuit</span><span>Synthetic demo · no production market route disclosed</span></div>
+</main>
+<script type="module">
+import { BrowserCompactSession } from './proof-client.bundle.js';
+const $ = (id) => document.querySelector('#' + id);
+
+function render(proof) {
+  $('status').textContent = proof.accepted ? 'POLICY PASSED' : 'REJECTED';
+  $('status').classList.toggle('rejected', !proof.accepted);
+  if (proof.commitment) $('commitment').textContent = proof.commitment;
+  if (proof.acceptedProofs !== undefined) $('count').textContent = proof.acceptedProofs;
+  if (proof.publicPolicy) {
+    $('net').textContent = proof.publicPolicy.minimumNetBps + ' bps';
+    $('bridge').textContent = proof.publicPolicy.maximumBridgeSeconds / 60 + ' min';
+    $('liquidity').textContent = '$' + proof.publicPolicy.minimumLiquidityUsd.toLocaleString();
+  }
+  $('disclosed').textContent = proof.privateFieldsDisclosed?.length ?? 0;
+  if (proof.compiler) $('compiler').textContent = `Compact ${proof.compiler.language} · runtime ${proof.compiler.runtime} · ${proof.execution.engine}`;
+}
+
+let connectedWallet = null;
+const PREPROD = 'preprod';
+
+function walletEntries() {
+  return Object.entries(window.midnight ?? {}).filter(([, wallet]) => wallet && typeof wallet.connect === 'function');
+}
+
+function findLace() {
+  const entries = walletEntries();
+  return entries.find(([key, wallet]) => key.toLowerCase().includes('lace') || wallet.name?.toLowerCase().includes('lace')) ?? entries[0];
+}
+
+function showWallet(state, detail = '') {
+  $('walletState').textContent = state;
+  $('walletAddress').textContent = detail || 'No wallet permission requested.';
+  $('connectWallet').hidden = Boolean(connectedWallet);
+  $('disconnectWallet').hidden = !connectedWallet;
+}
+
+function refreshWallet() {
+  if (connectedWallet) return;
+  const entry = findLace();
+  if (entry) {
+    const [, wallet] = entry;
+    showWallet(`${wallet.name || 'Midnight wallet'} detected · API ${wallet.apiVersion || 'unknown'}`, 'Ready to request a Preprod connection.');
+  } else {
+    showWallet('Lace not detected', 'Install or unlock Lace, select Midnight Preprod, then refresh.');
+  }
+}
+
+async function connectWallet() {
+  const entry = findLace();
+  if (!entry) return refreshWallet();
+  const [, wallet] = entry;
+  $('connectWallet').disabled = true;
+  showWallet('Waiting for wallet authorization…', 'Confirm the Preprod connection in Lace.');
+  try {
+    const api = await wallet.connect(PREPROD);
+    const status = await api.getConnectionStatus();
+    if (status.status !== 'connected' || status.networkId.toLowerCase() !== PREPROD) throw new Error(`Wallet connected to ${status.networkId ?? 'an unknown network'}; switch Lace to Preprod.`);
+    const [{ unshieldedAddress }, configuration] = await Promise.all([api.getUnshieldedAddress(), api.getConfiguration()]);
+    if (configuration.networkId.toLowerCase() !== PREPROD) throw new Error(`Wallet configuration reports ${configuration.networkId}; Preprod is required.`);
+    connectedWallet = api;
+    showWallet('Lace connected · Preprod', unshieldedAddress);
+  } catch (error) {
+    connectedWallet = null;
+    showWallet('Connection failed', error instanceof Error ? error.message : String(error));
+  } finally {
+    $('connectWallet').disabled = false;
+  }
+}
+
+function disconnectWallet() {
+  connectedWallet = null;
+  showWallet('Disconnected from this DApp session', 'Lace permissions are unchanged; reconnect to use the wallet again.');
+}
+
+$('refreshWallet').onclick = refreshWallet;
+$('connectWallet').onclick = connectWallet;
+$('disconnectWallet').onclick = disconnectWallet;
+setTimeout(refreshWallet, 300);
+
+let proofSession;
+BrowserCompactSession.create().then(async (session) => {
+  proofSession = session;
+  render(await session.prove({ secretRoute: 'synthetic-origin:asset-x>bridge-y>destination-z:salt-42', netBps: 87, bridgeSeconds: 540, liquidityUsd: 48000 }));
+}).catch(() => {
+  $('status').textContent = 'CIRCUIT LOAD FAILED';
+  $('status').classList.add('rejected');
+});
+
+$('prove').onclick = async () => {
+  $('prove').disabled = true;
+  $('message').textContent = 'Executing proveOpportunity…';
+  try {
+    if (!proofSession) throw new Error('Compact circuit is still loading');
+    const result = await proofSession.prove({ secretRoute: $('route').value, netBps: $('netInput').value, bridgeSeconds: $('bridgeInput').value, liquidityUsd: $('liquidityInput').value });
+    render(result);
+    $('message').textContent = 'Compact circuit accepted the private witnesses.';
+  } catch (error) {
+    $('message').textContent = error instanceof Error ? error.message : String(error);
+  } finally {
+    $('prove').disabled = false;
+  }
+};
+</script>
+</body>
+</html>
