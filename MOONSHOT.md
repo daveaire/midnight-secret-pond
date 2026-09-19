@@ -20,7 +20,8 @@ Official program page: <https://risein.com/programs/new-moon-to-full-monthly-moo
 - Public demo: <https://daveaire.github.io/midnight-secret-pond/>
 - Dashboard executes the generated Compact state machine directly in the browser and shows only public policy results, the commitment, and the accepted-proof counter.
 - Lace is discovered through the official `window.midnight` connector. The UI requests Preprod, verifies both connection and configuration network IDs, reads the unshielded address, and disconnects the local DApp session without signing or spending.
-- The command-line workflow has public Preview proof evidence. Preprod deployment and a recorded Lace-connected circuit demonstration remain incomplete and must not be claimed yet.
+- The command-line workflow now has public Preview and Preprod proof evidence. The Preprod contract is `106445fc38b1291834ca9fd0eb22e3a89147c1717a2379ae3885b2dbb1989214`; its first `proveOpportunity` call finalized in transaction `00723ecaa4aba4213b4b053d68405d726fc96947f57d5d7d4f5b3b6b252b723e08` at block `2612394`.
+- A recorded Lace-connected browser demonstration remains incomplete and must not be claimed yet.
 
 ### Level 3 — Production-grade dApp
 
@@ -32,6 +33,5 @@ Official program page: <https://risein.com/programs/new-moon-to-full-monthly-moo
 
 ## Remaining program gates
 
-- Deploy the contract to Preprod and record the verifiable address.
-- Fund and connect a Lace Preprod test wallet, then record wallet connection and a successful circuit call.
+- Import or fund a Lace Preprod test wallet, then record wallet connection and a successful browser circuit call.
 - Do not claim Level 4, Level 5, or Level 6 until the MVP, feedback, user-count, and Mainnet requirements are actually met.

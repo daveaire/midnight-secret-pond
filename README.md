@@ -74,7 +74,7 @@ These versions match Midnight's supported Preview/Preprod compatibility matrix a
 ## Proof status
 
 - **Complete:** Compact source, supported compiler output, ZKIR, proving/verifying keys, generated contract execution, policy assertions, persistent ledger behavior, and nine automated tests.
-- **Verified publicly:** the contract is deployed on Midnight Preview and proof-server `8.1.0` generated a real proof transaction finalized at block `925805`. The public contract address, transaction ID, accepted-proof count, and commitment are recorded in [NETWORK-PROOF.md](NETWORK-PROOF.md).
+- **Verified publicly:** contracts are deployed on Midnight Preview and Preprod. Proof-server `8.1.0` generated real proof transactions finalized at Preview block `925805` and Preprod block `2612394`. The public contract addresses, transaction IDs, accepted-proof counts, and commitments are recorded in [NETWORK-PROOF.md](NETWORK-PROOF.md).
 - **Verified locally:** the same workflow also finalized on the isolated development network at block `32`.
 
 ## Build the demo video
@@ -93,6 +93,6 @@ GitHub Actions runs `npm ci` and `npm run check` on every push and pull request.
 
 The project's evidence against Rise In's separate Midnight Monthly Moonshots levels is recorded in [MOONSHOT.md](MOONSHOT.md). That document distinguishes completed proof from remaining wallet, hosting, and user-adoption gates.
 
-The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network. A Preprod deployment is still required before claiming Moonshots Level 2 completion.
+The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. Separate Preview and Preprod evidence records transactions that were cryptographically proven and finalized on public test networks. The recorded Lace-connected browser demonstration remains required before claiming Moonshots Level 2 completion.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.
