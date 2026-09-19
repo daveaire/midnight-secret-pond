@@ -1,5 +1,7 @@
 # Secret Pond Proof
 
+[![CI](https://github.com/daveaire/midnight-secret-pond/actions/workflows/ci.yml/badge.svg)](https://github.com/daveaire/midnight-secret-pond/actions/workflows/ci.yml)
+
 Secret Pond Proof is a Midnight privacy DApp for verifying executable arbitrage opportunities. A scanner can prove that a market route clears public thresholds for net return, bridge time, and liquidity while keeping the asset, venues, trade size, and route salt private.
 
 The Compact circuit reads the opportunity facts as witnesses, enforces the policy, and publishes only a persistent commitment and an accepted-proof counter. This lets an operator demonstrate disciplined execution or selectively reveal a route later without broadcasting it today.
