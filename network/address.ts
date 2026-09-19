@@ -26,7 +26,6 @@ async function main(): Promise<void> {
         timeoutMs,
       )),
     ]);
-    await persistWalletState(network, walletCtx);
     const balance = state.unshielded.balances[unshieldedToken().raw] ?? 0n;
     const registeredUtxos = state.unshielded.availableCoins.filter(
       (coin: any) => coin.meta?.registeredForDustGeneration,
@@ -41,6 +40,10 @@ async function main(): Promise<void> {
       console.log('Recovery material was created in the owner-only, gitignored .midnight-state.json file.');
     }
   } finally {
+    // Persist even when a bounded sync times out. Public networks can require
+    // replaying a large encrypted history, and throwing away partial progress
+    // would force every retry to restart from genesis.
+    await persistWalletState(network, walletCtx);
     await walletCtx.wallet.stop();
   }
 }
