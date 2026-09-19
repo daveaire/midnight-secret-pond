@@ -4,6 +4,8 @@
 
 **Public repository:** <https://github.com/daveaire/midnight-secret-pond>
 
+**Demo video:** <https://youtu.be/5Ik1cGvbOrY>
+
 **One line:** Prove an executable arbitrage opportunity satisfies profitability, speed, and liquidity policy without revealing the asset, venues, trade size, or market route.
 
 ## Problem
@@ -34,6 +36,8 @@ The current circuit proves that one observed opportunity satisfies policy. It do
 The repository includes the Midnight.js 4.1.1 deployment and proof client used for both runs. The dashboard demonstrates generated Compact execution; `NETWORK-PROOF.md` distinguishes interactive local execution from the finalized public Preview transaction.
 
 ## Demo
+
+The published 2:08 demo was generated reproducibly with `python3 scripts/build-demo-video.py`. The reviewed MP4 has SHA-256 `9052b641b85bbbc002ddeb04e907eafc504aa521c22c7dd853267d420df96435`.
 
 1. Show the private scanner record locally.
 2. Run `npm run demo`; only policy, result, and commitment appear.
