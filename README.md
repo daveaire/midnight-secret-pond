@@ -83,6 +83,12 @@ python3 scripts/build-demo-video.py
 
 The reproducible builder writes `demo-output/secret-pond-proof-demo.mp4` with natural neural narration. Generated media stays outside version control.
 
+## Continuous verification
+
+GitHub Actions runs `npm ci` and `npm run check` on every push and pull request. The same command performs syntax checks, TypeScript type checking, and the nine behavioral and privacy tests used for the submission.
+
+The project's evidence against Rise In's separate Midnight Monthly Moonshots levels is recorded in [MOONSHOT.md](MOONSHOT.md). That document distinguishes completed proof from remaining wallet, hosting, and user-adoption gates.
+
 The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.
