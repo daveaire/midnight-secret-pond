@@ -6,4 +6,5 @@ node_modules/
 *-state/
 midnight-level-db/
 dist/
+demo-output/
 .tools/

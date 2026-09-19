@@ -73,6 +73,16 @@ These versions match Midnight's supported Preview/Preprod compatibility matrix a
 - **Verified publicly:** the contract is deployed on Midnight Preview and proof-server `8.1.0` generated a real proof transaction finalized at block `925805`. The public contract address, transaction ID, accepted-proof count, and commitment are recorded in [NETWORK-PROOF.md](NETWORK-PROOF.md).
 - **Verified locally:** the same workflow also finalized on the isolated development network at block `32`.
 
+## Build the demo video
+
+Install Pillow, `imageio-ffmpeg`, and `edge-tts`, then run:
+
+```sh
+python3 scripts/build-demo-video.py
+```
+
+The reproducible builder writes `demo-output/secret-pond-proof-demo.mp4` with natural neural narration. Generated media stays outside version control.
+
 The local dashboard reports **Compact circuit accepted** because each dashboard interaction runs locally. The separate Preview evidence records the transaction that was cryptographically proven and finalized on the public test network.
 
 All bundled demo values are synthetic. No production opportunity, wallet secret, API credential, or private route is committed to this repository.
